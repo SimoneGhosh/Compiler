@@ -50,3 +50,5 @@ Architecture of virtual machine
         6. take the matching element from operands and put it in the instruction (switch)
         7. after encoding operand, increase offset by width
 
+- compiler
+    - traverse AST, find the *ast.IntegerLiteral nodes,  evaluate them by turning them into *object.Integer objects
