@@ -50,5 +50,19 @@ Architecture of virtual machine
         6. take the matching element from operands and put it in the instruction (switch)
         7. after encoding operand, increase offset by width
 
+    - ReadOperands
+        - opposite of make, decodes operands
+        - why is decoding ReadUint16 sep function?
+            - encoding was done in function
+            -  want to expose the function so it can be used directly by the VM
+            -  skip the definition lookup required by ReadOperands
+
 - compiler
     - traverse AST, find the *ast.IntegerLiteral nodes,  evaluate them by turning them into *object.Integer objects
+
+- virtual machine = fetch-decode-execute cycle
+    1. iterate through vm.instructions by incrementing the instruction pointer, ip, and fetch the current instruction by directly accessing
+    vm.instructions. Turn the byte into an Opcode
+    2. code.ReadUint16 function we decode the operands in the bytecode, starting with
+    the byte positioned right after the opcode, at ip+1.
+    3. constIndex to get to the constant in vm.constants and then push it on to the stack. vm.push checks the stack size, adding the object and incrementing the stackpointer, sp
