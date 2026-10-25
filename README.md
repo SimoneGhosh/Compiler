@@ -66,3 +66,5 @@ Architecture of virtual machine
     2. code.ReadUint16 function we decode the operands in the bytecode, starting with
     the byte positioned right after the opcode, at ip+1.
     3. constIndex to get to the constant in vm.constants and then push it on to the stack. vm.push checks the stack size, adding the object and incrementing the stackpointer, sp
+
+Compiling Expressions
