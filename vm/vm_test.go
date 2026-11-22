@@ -31,6 +31,21 @@ func testIntegerObject(expected int64, actual object.Object) error {
 	return nil
 }
 
+func testBooleanObject(expected bool, actual object.Object) error {
+	result, ok := actual.(*object.Boolean)
+	if !ok {
+		return fmt.Errorf("object is not Boolean, got=%T (%+v)",
+			actual, actual)
+	}
+
+	if result.Value != expected {
+		return fmt.Errorf("object has wrong value. got=%t, want=%t",
+			result.Value, expected)
+	}
+
+	return nil
+}
+
 type vmTestCase struct {
 	input string
 	expected interface{}
@@ -84,6 +99,12 @@ func testExpectedObject(
 		if err != nil {
 			t.Errorf("testIntegerObject failed: %s", err)
 		}
+
+	case bool:
+		err := testBooleanObject(bool(expected), actual)
+		if err != nil {
+			t.Errorf("testBooleanObject failed %s", err)
+		}
 	}
 }
 
@@ -94,5 +115,14 @@ func TestIntegerArithmetic(t *testing.T) {
 		{"1 + 2", 3}, // FIXME
 	}
 	
+	runVmTests(t, tests)
+}
+
+func TestBooleanExpressions(t *testing.T) {
+	tests := []vmTestCase {
+		{"true", true},
+		{"false", false},
+	}
+
 	runVmTests(t, tests)
 }

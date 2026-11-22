@@ -20,6 +20,8 @@ const (
 	OpConstant Opcode = iota
 	OpAdd
 	OpPop
+	OpTrue
+	OpFalse
 )
 
 // Bytecode defined in compiler package
@@ -34,6 +36,8 @@ var definitions = map[Opcode]*Definition {
 	OpConstant: {"OpConstant", []int{2}},
 	OpAdd: {"OpAdd", []int{}},
 	OpPop: {"OpPop", []int{}},
+	OpTrue: {"OpTrue", []int{}},
+	OpFalse: {"OpFalse", []int{}},
 }
 
 func Lookup(op byte) (*Definition, error) {
