@@ -27,11 +27,18 @@ func New(bytecode *compiler.Bytecode) *VM {
 	}
 }
 
+/* deprecated 
 func (vm *VM) StackTop() object.Object {
 	if vm.sp == 0 {
 		return nil
 	}
 	return vm.stack[vm.sp-1]
+} */
+
+// replace StackTop
+// this should have been on the stack, right before you popped it off
+func (vm *VM) LastPoppedStackElem() object.Object {
+	return vm.stack[vm.sp]
 }
 
 /*
@@ -64,6 +71,9 @@ func (vm *VM) Run() error {
 
 			result := leftValue + rightValue
 			vm.push(&object.Integer{Value: result})
+
+		case code.OpPop:
+			vm.pop()
 		}
 	}
 
