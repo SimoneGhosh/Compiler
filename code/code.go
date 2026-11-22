@@ -25,6 +25,9 @@ const (
 	OpPop
 	OpTrue
 	OpFalse
+	OpEqual
+	OpNotEqual
+	OpGreaterThan
 )
 
 // Bytecode defined in compiler package
@@ -44,6 +47,9 @@ var definitions = map[Opcode]*Definition {
 	OpPop: {"OpPop", []int{}},
 	OpTrue: {"OpTrue", []int{}},
 	OpFalse: {"OpFalse", []int{}},
+	OpEqual: {"OpEqual", []int{}},
+	OpNotEqual: {"OpNotEqual", []int{}},
+	OpGreaterThan: {"OpGreaterThan", []int{}},
 }
 
 func Lookup(op byte) (*Definition, error) {
